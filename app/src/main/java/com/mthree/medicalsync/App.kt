@@ -11,7 +11,6 @@ import dagger.hilt.android.HiltAndroidApp
 // 6706223003
 // D3IF-4603
 
-
 @HiltAndroidApp
 class App : Application() {
 
