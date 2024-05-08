@@ -46,6 +46,7 @@ import com.mthree.medicalsync.analytics.AnalyticsHelper
 import com.mthree.medicalsync.feature.addmedication.navigation.AddMedicationDestination
 import com.mthree.medicalsync.feature.history.HistoryDestination
 import com.mthree.medicalsync.feature.home.navigation.HomeDestination
+import com.mthree.medicalsync.feature.control.navigation.ControlDestination
 import com.mthree.medicalsync.navigation.MedicalNavHost
 import com.mthree.medicalsync.navigation.MedicalTopLevelNavigation
 import com.mthree.medicalsync.navigation.TOP_LEVEL_DESTINATIONS
@@ -188,8 +189,8 @@ private fun trackTabClicked(analyticsHelper: AnalyticsHelper, route: String) {
         analyticsHelper.logEvent(AnalyticsEvents.HOME_TAB_CLICKED)
     }
 
-    if (route == HistoryDestination.route) {
-        analyticsHelper.logEvent(AnalyticsEvents.HISTORY_TAB_CLICKED)
+    if (route == ControlDestination.route) {
+        analyticsHelper.logEvent(AnalyticsEvents.CONTROL_TAB_CLICKED)
     }
 }
 
