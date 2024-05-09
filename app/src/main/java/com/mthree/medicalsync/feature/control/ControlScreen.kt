@@ -54,11 +54,10 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.mthree.medicalsync.R
 import com.mthree.medicalsync.analytics.AnalyticsEvents
 import com.mthree.medicalsync.domain.model.Control
-import com.mthree.medicalsync.domain.model.Medication
 import com.mthree.medicalsync.extension.toFormattedDateShortString
 import com.mthree.medicalsync.extension.toFormattedDateString
 import com.mthree.medicalsync.extension.toFormattedMonthDateString
-import com.mthree.medicalsync.feature.addmedication.navigation.AddMedicationDestination
+import com.mthree.medicalsync.feature.addcontrol.navigation.AddControlDestination
 import com.mthree.medicalsync.feature.control.data.CalendarDataSource
 import com.mthree.medicalsync.feature.control.model.CalendarModel
 import com.mthree.medicalsync.feature.control.viewmodel.ControlState
@@ -105,7 +104,7 @@ fun ControlScreen(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        DailyMedications(
+        DailyControls(
             navController = navController,
             state = state,
             navigateToControlDetail = navigateToControlDetail
@@ -137,7 +136,7 @@ fun Greeting() {
 @Composable
 fun DailyOverviewCard(
     navController: NavController,
-    medicationsToday: List<Medication>,
+    controlsToday: List<Control>,
     logEvent: (String) -> Unit
 ) {
 
@@ -152,8 +151,8 @@ fun DailyOverviewCard(
             contentColor = MaterialTheme.colorScheme.tertiary
         ),
         onClick = {
-            logEvent.invoke(AnalyticsEvents.ADD_MEDICATION_CLICKED_DAILY_OVERVIEW)
-            navController.navigate(AddMedicationDestination.route)
+            logEvent.invoke(AnalyticsEvents.ADD_CONTROL_CLICKED_DAILY_OVERVIEW)
+            navController.navigate(AddControlDestination.route)
         }
     ) {
         Row(
@@ -175,8 +174,8 @@ fun DailyOverviewCard(
                 Text(
                     text = stringResource(
                         id = R.string.daily_medicine_log,
-                        medicationsToday.filter { it.medicationTaken }.size,
-                        medicationsToday.size
+                        controlsToday.filter { it.controlTaken }.size,
+                        controlsToday.size
                     ),
                     style = MaterialTheme.typography.titleSmall,
                 )
@@ -215,8 +214,8 @@ fun EmptyCard(
             contentColor = MaterialTheme.colorScheme.tertiary
         ),
         onClick = {
-            logEvent.invoke(AnalyticsEvents.ADD_MEDICATION_CLICKED_EMPTY_CARD)
-            navController.navigate(AddMedicationDestination.route)
+            logEvent.invoke(AnalyticsEvents.ADD_CONTROL_CLICKED_EMPTY_CARD)
+            navController.navigate(AddControlDestination.route)
         }
     ) {
         Row(modifier = Modifier.fillMaxSize()) {
@@ -229,7 +228,7 @@ fun EmptyCard(
             ) {
 
                 Text(
-                    text = stringResource(R.string.medication_break),
+                    text = stringResource(R.string.control_break),
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleLarge,
                 )
@@ -254,32 +253,32 @@ fun EmptyCard(
 }
 
 @Composable
-fun DailyMedications(
+fun DailyControls(
     navController: NavController,
     state: ControlState,
     navigateToControlDetail: (Control) -> Unit,
     logEvent: (String) -> Unit
 ) {
 
-    var filteredMedications: List<Medication> by remember { mutableStateOf(emptyList()) }
+    var filteredControls: List<Control> by remember { mutableStateOf(emptyList()) }
 
     DatesHeader(
         logEvent = {
             logEvent.invoke(it)
         },
         onDateSelected = { selectedDate ->
-            val newMedicationList = state.medications
-                .filter { medication ->
-                    medication.medicationTime.toFormattedDateString() == selectedDate.date.toFormattedDateString()
+            val newControlList = state.controls
+                .filter { control ->
+                    control.controlTime.toFormattedDateString() == selectedDate.date.toFormattedDateString()
                 }
-                .sortedBy { it.medicationTime }
+                .sortedBy { it.controlTime }
 
-            filteredMedications = newMedicationList
+            filteredControls = newControlList
             logEvent.invoke(AnalyticsEvents.CONTROL_NEW_DATE_SELECTED)
         }
     )
 
-    if (filteredMedications.isEmpty()) {
+    if (filteredControls.isEmpty()) {
         EmptyCard(
             navController = navController,
             logEvent = {
@@ -291,10 +290,10 @@ fun DailyMedications(
             modifier = Modifier,
         ) {
             items(
-                items = filteredMedications,
+                items = filteredControls,
                 itemContent = {
                     ControlCard(
-                        medication = it,
+                        control = it,
                         navigateToControlDetail = { control ->
                             navigateToControlDetail(control)
                         }
@@ -470,10 +469,10 @@ fun DateHeader(
     }
 }
 
-sealed class MedicationListItem {
-    data class OverviewItem(val medicationsToday: List<Medication>, val isMedicationListEmpty: Boolean) : MedicationListItem()
-    data class MedicationItem(val medication: Medication) : MedicationListItem()
-    data class HeaderItem(val headerText: String) : MedicationListItem()
+sealed class ControlListItem {
+    data class OverviewItem(val controlsToday: List<Control>, val isControlListEmpty: Boolean) : ControlListItem()
+    data class ControlItem(val control: Control) : ControlListItem()
+    data class HeaderItem(val headerText: String) : ControlListItem()
 }
 
 @OptIn(ExperimentalPermissionsApi::class)

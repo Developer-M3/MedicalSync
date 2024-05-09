@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mthree.medicalsync.R
-import com.mthree.medicalsync.domain.model.Medication
+import com.mthree.medicalsync.domain.model.Control
 import com.mthree.medicalsync.extension.hasPassed
 import com.mthree.medicalsync.extension.toFormattedDateString
 import com.mthree.medicalsync.extension.toFormattedTimeString
@@ -30,15 +30,15 @@ import java.util.Date
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ControlCard(
-    medication: Medication,
-    navigateToControlDetail: Any
+    control: Control,
+    navigateToControlDetail: (Control) -> Unit
 ) {
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        onClick = { navigateToMedicationDetail(medication) },
+        onClick = { navigateToControlDetail(control) },
         shape = RoundedCornerShape(30.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -58,39 +58,39 @@ fun ControlCard(
                 Text(
                     modifier = Modifier.padding(bottom = 16.dp),
                     style = MaterialTheme.typography.titleSmall,
-                    text = medication.medicationTime.toFormattedDateString().uppercase(),
+                    text = control.controlTime.toFormattedDateString().uppercase(),
                     color = MaterialTheme.colorScheme.primary
                 )
 
                 Text(
-                    text = medication.name,
+                    text = control.name,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleLarge
                 )
 
-                val medicationStatusText = when {
-                    medication.medicationTime.hasPassed() -> {
-                        if (medication.medicationTaken) {
+                val controlStatusText = when {
+                    control.controlTime.hasPassed() -> {
+                        if (control.controlTaken) {
                             stringResource(
-                                id = R.string.medication_taken_at,
-                                medication.medicationTime.toFormattedTimeString()
+                                id = R.string.control_taken_at,
+                                control.controlTime.toFormattedTimeString()
                             )
                         } else {
                             stringResource(
-                                id = R.string.medication_skipped_at,
-                                medication.medicationTime.toFormattedTimeString()
+                                id = R.string.control_skipped_at,
+                                control.controlTime.toFormattedTimeString()
                             )
                         }
                     }
 
                     else -> stringResource(
-                        id = R.string.medication_scheduled_at,
-                        medication.medicationTime.toFormattedTimeString()
+                        id = R.string.control_scheduled_at,
+                        control.controlTime.toFormattedTimeString()
                     )
                 }
 
                 Text(
-                    text = medicationStatusText,
+                    text = controlStatusText,
                     color = MaterialTheme.colorScheme.primary
                 )
             }
@@ -100,18 +100,19 @@ fun ControlCard(
     }
 }
 
+
 @Preview
 @Composable
-private fun MedicationCardTakeNowPreview() {
+private fun ControlCardTakeNowPreview() {
     ControlCard(
-        Medication(
+        Control(
             id = 123L,
-            name = "A big big name for a little medication I needs to take",
+            name = "A big big name for a little control I needs to take",
             dosage = 1,
             recurrence = "2",
             endDate = Date(),
-            medicationTime = Date(),
-            medicationTaken = false
+            controlTime = Date(),
+            controlTaken = false
         )
     ) { control ->
         navigateToControlDetail(control)
@@ -120,16 +121,16 @@ private fun MedicationCardTakeNowPreview() {
 
 @Preview
 @Composable
-private fun MedicationCardTakenPreview() {
+private fun ControlCardTakenPreview() {
     ControlCard(
-        Medication(
+        Control(
             id = 123L,
-            name = "A big big name for a little medication I needs to take",
+            name = "A big big name for a little control I needs to take",
             dosage = 1,
             recurrence = "2",
             endDate = Date(),
-            medicationTime = Date(),
-            medicationTaken = true
+            controlTime = Date(),
+            controlTaken = true
         )
     ) { control ->
         navigateToControlDetail(control)

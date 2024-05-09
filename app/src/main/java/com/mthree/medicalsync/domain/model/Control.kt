@@ -11,6 +11,6 @@ data class Control(
     val dosage: Int,
     val recurrence: String,
     val endDate: Date,
-    val medicationTaken: Boolean,
-    val medicationTime: Date
+    val controlTaken: Boolean,
+    val controlTime: Date
 ) : Parcelable
