@@ -5,18 +5,18 @@ import androidx.compose.runtime.MutableState
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.mthree.medicalsync.core.navigation.MedicalNavigationDestination
-import com.mthree.medicalsync.domain.model.Medication
-import com.mthree.medicalsync.feature.addmedication.AddMedicationRoute
+import com.mthree.medicalsync.core.navigation.ControlNavigationDestination
+import com.mthree.medicalsync.domain.model.Control
+import com.mthree.medicalsync.feature.addcontrol.AddControlRoute
 import com.mthree.medicalsync.feature.home.navigation.ASK_ALARM_PERMISSION
 import com.mthree.medicalsync.feature.home.navigation.ASK_NOTIFICATION_PERMISSION
 
-object AddControlDestination : MedicalNavigationDestination {
-    override val route = "add_medication_route"
-    override val destination = "add_medication_destination"
+object AddControlDestination : ControlNavigationDestination {
+    override val route = "add_control_route"
+    override val destination = "add_control_destination"
 }
 
-fun NavGraphBuilder.addMedicationGraph(navController: NavController, bottomBarVisibility: MutableState<Boolean>, fabVisibility: MutableState<Boolean>, onBackClicked: () -> Unit, navigateToMedicationConfirm: (List<Medication>) -> Unit) {
+fun NavGraphBuilder.addControlGraph(navController: NavController, bottomBarVisibility: MutableState<Boolean>, fabVisibility: MutableState<Boolean>, onBackClicked: () -> Unit, navigateToControlConfirm: (List<Control>) -> Unit) {
     composable(route = AddControlDestination.route) {
         LaunchedEffect(null) {
             bottomBarVisibility.value = false
@@ -29,6 +29,6 @@ fun NavGraphBuilder.addMedicationGraph(navController: NavController, bottomBarVi
         navController.previousBackStackEntry?.savedStateHandle.apply {
             this?.set(ASK_ALARM_PERMISSION, true)
         }
-        AddMedicationRoute(onBackClicked, navigateToMedicationConfirm)
+        AddControlRoute(onBackClicked, navigateToControlConfirm)
     }
 }

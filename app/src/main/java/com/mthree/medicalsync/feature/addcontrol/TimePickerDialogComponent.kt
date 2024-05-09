@@ -3,7 +3,7 @@ package com.mthree.medicalsync.feature.addcontrol
 import android.app.TimePickerDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.mthree.medicalsync.feature.addmedication.model.CalendarInformation
+import com.mthree.medicalsync.feature.addcontrol.model.CalendarInformation
 import java.util.Calendar
 
 @Composable

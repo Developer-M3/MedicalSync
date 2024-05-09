@@ -41,6 +41,13 @@ object AnalyticsEvents {
     const val ADD_MEDICATION_DELETE_TIME_CLICKED = "add_medication_delete_time_clicked"
     const val ADD_MEDICATION_NEW_TIME_SELECTED = "add_medication_new_time_selected"
 
+    const val ADD_CONTROL_ON_BACK_CLICKED = "add_control_on_back_clicked"
+    const val ADD_CONTROL_CONTROL_VALUE_INVALIDATED = "add_control_control_%s_invalidated"
+    const val ADD_CONTROL_NAVIGATING_TO_CONTROL_CONFIRM = "add_control_navigating_to_control_confirm"
+    const val ADD_CONTROL_ADD_TIME_CLICKED = "add_control_add_time_clicked"
+    const val ADD_CONTROL_DELETE_TIME_CLICKED = "add_CONTROL_delete_time_clicked"
+    const val ADD_CONTROL_NEW_TIME_SELECTED = "add_control_new_time_selected"
+
     const val REMINDER_NOTIFICATION_CLICKED = "reminder_notification_clicked"
 
     const val MEDICATION_DETAIL_ON_BACK_CLICKED = "medication_detail_on_back_clicked"

@@ -56,10 +56,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mthree.medicalsync.R
 import com.mthree.medicalsync.analytics.AnalyticsEvents
-import com.mthree.medicalsync.domain.model.Medication
+import com.mthree.medicalsync.domain.model.Control
 import com.mthree.medicalsync.extension.toFormattedDateString
-import com.mthree.medicalsync.feature.addmedication.model.CalendarInformation
-import com.mthree.medicalsync.feature.addmedication.viewmodel.AddMedicationViewModel
+import com.mthree.medicalsync.feature.addcontrol.model.CalendarInformation
+import com.mthree.medicalsync.feature.addcontrol.viewmodel.AddControlViewModel
 import com.mthree.medicalsync.util.HOUR_MINUTE_FORMAT
 import com.mthree.medicalsync.util.Recurrence
 import com.mthree.medicalsync.util.SnackbarUtil.Companion.showSnackbar
@@ -70,26 +70,26 @@ import java.util.Date
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    AddMedicationRoute(onBackClicked = {}, navigateToMedicationConfirm = {})
+    AddControlRoute(onBackClicked = {}, navigateToControlConfirm = {})
 }
 
 @Composable
-fun AddMedicationRoute(
+fun AddControlRoute(
     onBackClicked: () -> Unit,
-    navigateToMedicationConfirm: (List<Medication>) -> Unit,
-    viewModel: AddMedicationViewModel = hiltViewModel()
+    navigateToControlConfirm: (List<Control>) -> Unit,
+    viewModel: AddControlViewModel = hiltViewModel()
 ) {
-    AddMedicationScreen(onBackClicked, viewModel, navigateToMedicationConfirm)
+    AddControlScreen(onBackClicked, viewModel, navigateToControlConfirm)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddMedicationScreen(
+fun AddControlScreen(
     onBackClicked: () -> Unit,
-    viewModel: AddMedicationViewModel,
-    navigateToMedicationConfirm: (List<Medication>) -> Unit,
+    viewModel: AddControlViewModel,
+    navigateToControlConfirm: (List<Control>) -> Unit,
 ) {
-    var medicationName by rememberSaveable { mutableStateOf("") }
+    var controlName by rememberSaveable { mutableStateOf("") }
     var numberOfDosage by rememberSaveable { mutableStateOf("1") }
     var recurrence by rememberSaveable { mutableStateOf(Recurrence.Daily.name) }
     var endDate by rememberSaveable { mutableLongStateOf(Date().time) }
@@ -98,12 +98,12 @@ fun AddMedicationScreen(
 
     fun addTime(time: CalendarInformation) {
         selectedTimes.add(time)
-        viewModel.logEvent(eventName = AnalyticsEvents.ADD_MEDICATION_ADD_TIME_CLICKED)
+        viewModel.logEvent(eventName = AnalyticsEvents.ADD_CONTROL_ADD_TIME_CLICKED)
     }
 
     fun removeTime(time: CalendarInformation) {
         selectedTimes.remove(time)
-        viewModel.logEvent(eventName = AnalyticsEvents.ADD_MEDICATION_DELETE_TIME_CLICKED)
+        viewModel.logEvent(eventName = AnalyticsEvents.ADD_CONTROL_DELETE_TIME_CLICKED)
     }
 
     Scaffold(
@@ -114,7 +114,7 @@ fun AddMedicationScreen(
                 navigationIcon = {
                     FloatingActionButton(
                         onClick = {
-                            viewModel.logEvent(eventName = AnalyticsEvents.ADD_MEDICATION_ON_BACK_CLICKED)
+                            viewModel.logEvent(eventName = AnalyticsEvents.ADD_CONTROL_ON_BACK_CLICKED)
                             onBackClicked()
                         },
                         elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp)
@@ -128,7 +128,7 @@ fun AddMedicationScreen(
                 title = {
                     Text(
                         modifier = Modifier.padding(16.dp),
-                        text = stringResource(id = R.string.add_medication),
+                        text = stringResource(id = R.string.add_control),
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.displaySmall
                     )
@@ -142,8 +142,8 @@ fun AddMedicationScreen(
                     .padding(vertical = 16.dp)
                     .height(56.dp),
                 onClick = {
-                    validateMedication(
-                        name = medicationName,
+                    validateControl(
+                        name = controlName,
                         dosage = numberOfDosage.toIntOrNull() ?: 0,
                         recurrence = recurrence,
                         endDate = endDate,
@@ -158,14 +158,14 @@ fun AddMedicationScreen(
                             )
 
                             val event = String.format(
-                                AnalyticsEvents.ADD_MEDICATION_MEDICATION_VALUE_INVALIDATED,
+                                AnalyticsEvents.ADD_CONTROL_CONTROL_VALUE_INVALIDATED,
                                 invalidatedValue
                             )
                             viewModel.logEvent(eventName = event)
                         },
                         onValidate = {
-                            navigateToMedicationConfirm(it)
-                            viewModel.logEvent(eventName = AnalyticsEvents.ADD_MEDICATION_NAVIGATING_TO_MEDICATION_CONFIRM)
+                            navigateToControlConfirm(it)
+                            viewModel.logEvent(eventName = AnalyticsEvents.ADD_CONTROL_NAVIGATING_TO_CONTROL_CONFIRM)
                         },
                         viewModel = viewModel
                     )
@@ -187,17 +187,17 @@ fun AddMedicationScreen(
         ) {
 
             Text(
-                text = stringResource(id = R.string.medication_name),
+                text = stringResource(id = R.string.control_name),
                 style = MaterialTheme.typography.bodyLarge
             )
             TextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                value = medicationName,
-                onValueChange = { medicationName = it },
+                value = controlName,
+                onValueChange = { controlName = it },
                 placeholder = {
                     Text(
-                        text = stringResource(R.string.medication_name_hint)
+                        text = stringResource(R.string.control_name_hint)
                     )
                 },
             )
@@ -262,7 +262,7 @@ fun AddMedicationScreen(
 
             Spacer(modifier = Modifier.padding(4.dp))
             Text(
-                text = stringResource(R.string.times_for_medication),
+                text = stringResource(R.string.times_for_control),
                 style = MaterialTheme.typography.bodyLarge
             )
 
@@ -275,7 +275,7 @@ fun AddMedicationScreen(
                     },
                     onDeleteClick = { removeTime(selectedTimes[index]) },
                     logEvent = {
-                        viewModel.logEvent(AnalyticsEvents.ADD_MEDICATION_NEW_TIME_SELECTED)
+                        viewModel.logEvent(AnalyticsEvents.ADD_CONTROL_NEW_TIME_SELECTED)
                     },
                 )
             }
@@ -290,18 +290,18 @@ fun AddMedicationScreen(
     }
 }
 
-private fun validateMedication(
+private fun validateControl(
     name: String,
     dosage: Int,
     recurrence: String,
     endDate: Long,
     selectedTimes: List<CalendarInformation>,
     onInvalidate: (Int) -> Unit,
-    onValidate: (List<Medication>) -> Unit,
-    viewModel: AddMedicationViewModel
+    onValidate: (List<Control>) -> Unit,
+    viewModel: AddControlViewModel
 ) {
     if (name.isEmpty()) {
-        onInvalidate(R.string.medication_name)
+        onInvalidate(R.string.control_name)
         return
     }
 
@@ -316,14 +316,14 @@ private fun validateMedication(
     }
 
     if (selectedTimes.isEmpty()) {
-        onInvalidate(R.string.times_for_medication)
+        onInvalidate(R.string.times_for_control)
         return
     }
 
-    val medications =
-        viewModel.createMedications(name, dosage, recurrence, Date(endDate), selectedTimes)
+    val controls =
+        viewModel.createControls(name, dosage, recurrence, Date(endDate), selectedTimes)
 
-    onValidate(medications)
+    onValidate(controls)
 }
 
 private fun handleSelection(
