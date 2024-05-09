@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mthree.medicalsync.analytics.AnalyticsHelper
-import com.mthree.medicalsync.domain.model.Medication
-import com.mthree.medicalsync.feature.home.usecase.GetMedicationsUseCase
-import com.mthree.medicalsync.feature.home.usecase.UpdateMedicationUseCase
+import com.mthree.medicalsync.domain.model.Control
+import com.mthree.medicalsync.feature.control.usecase.GetControlsUseCase
+import com.mthree.medicalsync.feature.control.usecase.UpdateControlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ControlViewModel @Inject constructor(
-    private val getMedicationsUseCase: GetMedicationsUseCase,
-    private val updateMedicationUseCase: UpdateMedicationUseCase,
+    private val getControlsUseCase: GetControlsUseCase,
+    private val updateControlUseCase: UpdateControlUseCase,
     private val analyticsHelper: AnalyticsHelper
 ) : ViewModel() {
 
@@ -26,7 +26,7 @@ class ControlViewModel @Inject constructor(
         private set
 
     init {
-        loadMedications()
+        loadControls()
     }
 
     fun getUserName() {
@@ -39,19 +39,19 @@ class ControlViewModel @Inject constructor(
         // TODO: Get greeting by checking system time
     }
 
-    fun loadMedications() {
+    fun loadControls() {
         viewModelScope.launch {
-            getMedicationsUseCase.getMedications().onEach { medicationList ->
+            getControlsUseCase.getControls().onEach { controlList ->
                 state = state.copy(
-                    medications = medicationList
+                    controls = controlList
                 )
             }.launchIn(viewModelScope)
         }
     }
 
-    fun takeMedication(medication: Medication) {
+    fun takeControl(control: Control) {
         viewModelScope.launch {
-            updateMedicationUseCase.updateMedication(medication)
+            updateControlUseCase.updateControl(control)
         }
     }
 

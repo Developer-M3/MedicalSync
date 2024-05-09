@@ -1,9 +1,9 @@
 package com.mthree.medicalsync.feature.control.viewmodel
 
-import com.mthree.medicalsync.domain.model.Medication
+import com.mthree.medicalsync.domain.model.Control
 
 data class ControlState(
     val greeting: String = "",
     val userName: String = "",
-    val medications: List<Medication> = emptyList()
+    val controls: List<Control> = emptyList()
 )
