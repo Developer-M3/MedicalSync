@@ -41,7 +41,7 @@ class ControlViewModel @Inject constructor(
 
     fun loadControls() {
         viewModelScope.launch {
-            getControlsUseCase.getControls().onEach { controlList ->
+            getControlsUseCase.getAllControls().onEach { controlList ->
                 state = state.copy(
                     controls = controlList
                 )
