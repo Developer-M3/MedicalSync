@@ -29,9 +29,9 @@ import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MedicationCard(
+fun ControlCard(
     medication: Medication,
-    navigateToMedicationDetail: (Medication) -> Unit
+    navigateToControlDetail: Any
 ) {
 
     Card(
@@ -103,7 +103,7 @@ fun MedicationCard(
 @Preview
 @Composable
 private fun MedicationCardTakeNowPreview() {
-    MedicationCard(
+    ControlCard(
         Medication(
             id = 123L,
             name = "A big big name for a little medication I needs to take",
@@ -113,13 +113,15 @@ private fun MedicationCardTakeNowPreview() {
             medicationTime = Date(),
             medicationTaken = false
         )
-    ) { }
+    ) { control ->
+        navigateToControlDetail(control)
+    }
 }
 
 @Preview
 @Composable
 private fun MedicationCardTakenPreview() {
-    MedicationCard(
+    ControlCard(
         Medication(
             id = 123L,
             name = "A big big name for a little medication I needs to take",
@@ -129,5 +131,7 @@ private fun MedicationCardTakenPreview() {
             medicationTime = Date(),
             medicationTaken = true
         )
-    ) { }
+    ) { control ->
+        navigateToControlDetail(control)
+    }
 }

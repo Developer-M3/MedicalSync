@@ -42,6 +42,7 @@
     <string name="daily_medicine_log">%d of %d completed.</string>
     <string name="medication_break">Medication Break</string>
     <string name="home_screen_empty_card_message">No medications scheduled for this date. Take a break and relax.</string>
+    <string name="control_screen_empty_card_message">No controls scheduled for this date. Take a break and relax.</string>
     <string name="today">Today</string>
     <string name="this_week">This Week</string>
     <string name="next_week">Next Week</string>

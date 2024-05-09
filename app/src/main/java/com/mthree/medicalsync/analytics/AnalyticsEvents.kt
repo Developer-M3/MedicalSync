@@ -20,6 +20,10 @@ object AnalyticsEvents {
     const val ADD_MEDICATION_CLICKED_DAILY_OVERVIEW = "add_medication_clicked_daily_overview"
     const val ADD_MEDICATION_CLICKED_FAB = "add_medication_clicked_fab"
 
+    const val ADD_CONTROL_CLICKED_EMPTY_CARD = "add_control_clicked_empty_card"
+    const val ADD_CONTROL_CLICKED_DAILY_OVERVIEW = "add_control_clicked_daily_overview"
+    const val ADD_CONTROL_CLICKED_FAB = "add_control_clicked_fab"
+
     const val TAKE_MEDICATION_CLICKED = "take_medication_clicked"
 
     const val MEDICATION_NOTIFICATION_SHOWN = "medication_notification_shown"
@@ -51,4 +55,8 @@ object AnalyticsEvents {
     const val HOME_CALENDAR_PREVIOUS_WEEK_CLICKED = "home_calendar_previous_week_clicked"
     const val HOME_CALENDAR_NEXT_WEEK_CLICKED = "home_calendar_next_week_clicked"
     const val HOME_NEW_DATE_SELECTED = "home_new_date_clicked"
+
+    const val CONTROL_CALENDAR_PREVIOUS_WEEK_CLICKED = "control_calendar_previous_week_clicked"
+    const val CONTROL_CALENDAR_NEXT_WEEK_CLICKED = "control_calendar_next_week_clicked"
+    const val CONTROL_NEW_DATE_SELECTED = "control_new_date_clicked"
 }

@@ -53,26 +53,27 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.mthree.medicalsync.R
 import com.mthree.medicalsync.analytics.AnalyticsEvents
+import com.mthree.medicalsync.domain.model.Control
 import com.mthree.medicalsync.domain.model.Medication
 import com.mthree.medicalsync.extension.toFormattedDateShortString
 import com.mthree.medicalsync.extension.toFormattedDateString
 import com.mthree.medicalsync.extension.toFormattedMonthDateString
 import com.mthree.medicalsync.feature.addmedication.navigation.AddMedicationDestination
-import com.mthree.medicalsync.feature.home.data.CalendarDataSource
-import com.mthree.medicalsync.feature.home.model.CalendarModel
-import com.mthree.medicalsync.feature.home.viewmodel.HomeState
-import com.mthree.medicalsync.feature.home.viewmodel.HomeViewModel
+import com.mthree.medicalsync.feature.control.data.CalendarDataSource
+import com.mthree.medicalsync.feature.control.model.CalendarModel
+import com.mthree.medicalsync.feature.control.viewmodel.ControlState
+import com.mthree.medicalsync.feature.control.viewmodel.ControlViewModel
 import java.util.Calendar
 import java.util.Date
 
 @Composable
-fun HomeRoute(
+fun ControlRoute(
     navController: NavController,
     askNotificationPermission: Boolean,
     askAlarmPermission: Boolean,
-    navigateToMedicationDetail: (Medication) -> Unit,
+    navigateToControlDetail: (Control) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: ControlViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
     PermissionAlarmDialog(
@@ -83,21 +84,21 @@ fun HomeRoute(
         askNotificationPermission = askNotificationPermission,
         logEvent = viewModel::logEvent
     )
-    HomeScreen(
+    ControlScreen(
         modifier = modifier,
         navController = navController,
         state = state,
-        navigateToMedicationDetail = navigateToMedicationDetail,
+        navigateToControlDetail = navigateToControlDetail,
         logEvent = viewModel::logEvent
     )
 }
 
 @Composable
-fun HomeScreen(
+fun ControlScreen(
     modifier: Modifier,
     navController: NavController,
-    state: HomeState,
-    navigateToMedicationDetail: (Medication) -> Unit,
+    state: ControlState,
+    navigateToControlDetail: (Control) -> Unit,
     logEvent: (String) -> Unit
 ) {
     Column(
@@ -107,11 +108,10 @@ fun HomeScreen(
         DailyMedications(
             navController = navController,
             state = state,
-            navigateToMedicationDetail = navigateToMedicationDetail,
-            logEvent = {
-                logEvent.invoke(it)
-            }
-        )
+            navigateToControlDetail = navigateToControlDetail
+        ) {
+            logEvent.invoke(it)
+        }
     }
 }
 
@@ -235,7 +235,7 @@ fun EmptyCard(
                 )
 
                 Text(
-                    text = stringResource(R.string.home_screen_empty_card_message),
+                    text = stringResource(R.string.control_screen_empty_card_message),
                     style = MaterialTheme.typography.titleSmall,
                 )
             }
@@ -256,8 +256,8 @@ fun EmptyCard(
 @Composable
 fun DailyMedications(
     navController: NavController,
-    state: HomeState,
-    navigateToMedicationDetail: (Medication) -> Unit,
+    state: ControlState,
+    navigateToControlDetail: (Control) -> Unit,
     logEvent: (String) -> Unit
 ) {
 
@@ -275,7 +275,7 @@ fun DailyMedications(
                 .sortedBy { it.medicationTime }
 
             filteredMedications = newMedicationList
-            logEvent.invoke(AnalyticsEvents.HOME_NEW_DATE_SELECTED)
+            logEvent.invoke(AnalyticsEvents.CONTROL_NEW_DATE_SELECTED)
         }
     )
 
@@ -293,10 +293,10 @@ fun DailyMedications(
             items(
                 items = filteredMedications,
                 itemContent = {
-                    MedicationCard(
+                    ControlCard(
                         medication = it,
-                        navigateToMedicationDetail = { medication ->
-                            navigateToMedicationDetail(medication)
+                        navigateToControlDetail = { control ->
+                            navigateToControlDetail(control)
                         }
                     )
                 }
@@ -329,7 +329,7 @@ fun DatesHeader(
                 val finalStartDate = calendar.time
 
                 calendarModel = dataSource.getData(startDate = finalStartDate, lastSelectedDate = calendarModel.selectedDate.date)
-                logEvent.invoke(AnalyticsEvents.HOME_CALENDAR_PREVIOUS_WEEK_CLICKED)
+                logEvent.invoke(AnalyticsEvents.CONTROL_CALENDAR_PREVIOUS_WEEK_CLICKED)
             },
             onNextClickListener = { endDate ->
                 // refresh the CalendarModel with new data
@@ -341,7 +341,7 @@ fun DatesHeader(
                 val finalStartDate = calendar.time
 
                 calendarModel = dataSource.getData(startDate = finalStartDate, lastSelectedDate = calendarModel.selectedDate.date)
-                logEvent.invoke(AnalyticsEvents.HOME_CALENDAR_NEXT_WEEK_CLICKED)
+                logEvent.invoke(AnalyticsEvents.CONTROL_CALENDAR_NEXT_WEEK_CLICKED)
             }
         )
         DateList(

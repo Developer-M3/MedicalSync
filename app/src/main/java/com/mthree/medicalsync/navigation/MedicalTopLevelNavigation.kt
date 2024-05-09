@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.mthree.medicalsync.R
-import com.mthree.medicalsync.feature.history.HistoryDestination
+import com.mthree.medicalsync.feature.control.navigation.ControlDestination
 import com.mthree.medicalsync.feature.home.navigation.HomeDestination
 
 class MedicalTopLevelNavigation(private val navController: NavHostController) {
@@ -48,7 +48,7 @@ val TOP_LEVEL_DESTINATIONS = listOf(
         iconTextId = R.string.medication
     ),
     TopLevelDestination(
-        route = HistoryDestination.route,
+        route = ControlDestination.route,
         selectedIcon = Icons.Filled.DateRange,
         unselectedIcon = Icons.Outlined.DateRange,
         iconTextId = R.string.control

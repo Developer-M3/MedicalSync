@@ -16,13 +16,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class ControlViewModel @Inject constructor(
     private val getMedicationsUseCase: GetMedicationsUseCase,
     private val updateMedicationUseCase: UpdateMedicationUseCase,
     private val analyticsHelper: AnalyticsHelper
 ) : ViewModel() {
 
-    var state by mutableStateOf(HomeState())
+    var state by mutableStateOf(ControlState())
         private set
 
     init {

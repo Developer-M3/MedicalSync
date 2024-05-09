@@ -1,7 +1,7 @@
 package com.mthree.medicalsync.feature.control.data
 
 import com.mthree.medicalsync.extension.toFormattedDateString
-import com.mthree.medicalsync.feature.home.model.CalendarModel
+import com.mthree.medicalsync.feature.control.model.CalendarModel
 import java.util.Calendar
 import java.util.Date
 
