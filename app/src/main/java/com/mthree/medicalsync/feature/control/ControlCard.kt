@@ -108,9 +108,7 @@ private fun ControlCardTakeNowPreview() {
             controlTime = Date(),
             controlTaken = false
         )
-    ) { control ->
-        navigateToControlDetail(control)
-    }
+    ) { }
 }
 
 @Preview
@@ -126,7 +124,5 @@ private fun ControlCardTakenPreview() {
             controlTime = Date(),
             controlTaken = true
         )
-    ) { control ->
-        navigateToControlDetail(control)
-    }
+    ) { }
 }
