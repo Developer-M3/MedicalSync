@@ -73,6 +73,7 @@
     <string name="control_dose_details">%d dose at %s</string>
     <string name="control_reminder">Control Reminder</string>
     <string name="notifications_for_control_reminder">Notifications for control reminder</string>
+    <string name="notifications_for_medication_reminder">Notifications for medication reminder</string>
     <string name="control_reminder_time">It is time to take your control, %s. Open the app to log it.</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
