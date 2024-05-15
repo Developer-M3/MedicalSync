@@ -33,7 +33,6 @@ fun ControlCard(
     control: Control,
     navigateToControlDetail: (Control) -> Unit
 ) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,13 +60,11 @@ fun ControlCard(
                     text = control.controlTime.toFormattedDateString().uppercase(),
                     color = MaterialTheme.colorScheme.primary
                 )
-
                 Text(
                     text = control.name,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleLarge
                 )
-
                 val controlStatusText = when {
                     control.controlTime.hasPassed() -> {
                         if (control.controlTaken) {
@@ -82,19 +79,16 @@ fun ControlCard(
                             )
                         }
                     }
-
                     else -> stringResource(
                         id = R.string.control_scheduled_at,
                         control.controlTime.toFormattedTimeString()
                     )
                 }
-
                 Text(
                     text = controlStatusText,
                     color = MaterialTheme.colorScheme.primary
                 )
             }
-
             Icon(imageVector = Icons.Default.KeyboardArrowRight, contentDescription = null)
         }
     }
