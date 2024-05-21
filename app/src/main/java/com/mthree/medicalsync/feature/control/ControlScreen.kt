@@ -245,7 +245,7 @@ fun EmptyCard(
                 verticalAlignment = Alignment.Bottom
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.doctor), contentDescription = ""
+                    painter = painterResource(id = R.drawable.hospital), contentDescription = ""
                 )
             }
         }
