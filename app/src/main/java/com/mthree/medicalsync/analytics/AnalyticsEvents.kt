@@ -29,10 +29,17 @@ object AnalyticsEvents {
     const val MEDICATION_NOTIFICATION_SHOWN = "medication_notification_shown"
     const val MEDICATION_NOTIFICATION_SCHEDULED = "medication_notification_scheduled"
 
+    const val CONTROL_NOTIFICATION_SHOWN = "control_notification_shown"
+    const val CONTROL_NOTIFICATION_SCHEDULED = "control_notification_scheduled"
+
     const val MEDICATIONS_SAVED = "medications_saved"
+    const val CONTROLS_SAVED = "controls_saved"
 
     const val MEDICATION_CONFIRM_ON_BACK_CLICKED = "medications_confirm_on_back_clicked"
     const val MEDICATION_CONFIRM_ON_CONFIRM_CLICKED = "medications_confirm_on_confirm_clicked"
+
+    const val CONTROL_CONFIRM_ON_BACK_CLICKED = "controls_confirm_on_back_clicked"
+    const val CONTROL_CONFIRM_ON_CONFIRM_CLICKED = "controls_confirm_on_confirm_clicked"
 
     const val ADD_MEDICATION_ON_BACK_CLICKED = "add_medication_on_back_clicked"
     const val ADD_MEDICATION_MEDICATION_VALUE_INVALIDATED = "add_medication_medication_%s_invalidated"
@@ -54,6 +61,11 @@ object AnalyticsEvents {
     const val MEDICATION_DETAIL_TAKEN_CLICKED = "medication_detail_taken_clicked"
     const val MEDICATION_DETAIL_SKIPPED_CLICKED = "medication_detail_skipped_clicked"
     const val MEDICATION_DETAIL_DONE_CLICKED = "medication_detail_done_clicked"
+
+    const val CONTROL_DETAIL_ON_BACK_CLICKED = "control_detail_on_back_clicked"
+    const val CONTROL_DETAIL_TAKEN_CLICKED = "control_detail_taken_clicked"
+    const val CONTROL_DETAIL_SKIPPED_CLICKED = "control_detail_skipped_clicked"
+    const val CONTROL_DETAIL_DONE_CLICKED = "control_detail_done_clicked"
 
     const val HOME_TAB_CLICKED = "home_tab_clicked"
     const val HISTORY_TAB_CLICKED = "history_tab_clicked"

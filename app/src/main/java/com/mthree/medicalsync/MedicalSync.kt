@@ -44,7 +44,6 @@ import androidx.navigation.compose.rememberNavController
 import com.mthree.medicalsync.analytics.AnalyticsEvents
 import com.mthree.medicalsync.analytics.AnalyticsHelper
 import com.mthree.medicalsync.feature.addmedication.navigation.AddMedicationDestination
-import com.mthree.medicalsync.feature.history.HistoryDestination
 import com.mthree.medicalsync.feature.home.navigation.HomeDestination
 import com.mthree.medicalsync.feature.control.navigation.ControlDestination
 import com.mthree.medicalsync.navigation.MedicalNavHost
