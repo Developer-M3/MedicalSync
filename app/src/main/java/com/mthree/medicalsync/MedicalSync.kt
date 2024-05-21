@@ -43,6 +43,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mthree.medicalsync.analytics.AnalyticsEvents
 import com.mthree.medicalsync.analytics.AnalyticsHelper
+import com.mthree.medicalsync.feature.addcontrol.navigation.AddControlDestination
 import com.mthree.medicalsync.feature.addmedication.navigation.AddMedicationDestination
 import com.mthree.medicalsync.feature.home.navigation.HomeDestination
 import com.mthree.medicalsync.feature.control.navigation.ControlDestination
@@ -86,7 +87,10 @@ fun MedicalSync(
                         enter = slideInVertically(initialOffsetY = { it }),
                         exit = slideOutVertically(targetOffsetY = { it }),
                         content = {
-                            MedicalFAB(navController, analyticsHelper)
+                            when (currentDestination?.route) {
+                                ControlDestination.route -> ControlFAB(navController, analyticsHelper)
+                                else -> MedicalFAB(navController, analyticsHelper)
+                            }
                         }
                     )
                 },
@@ -199,6 +203,7 @@ fun MedicalFAB(navController: NavController, analyticsHelper: AnalyticsHelper) {
         text = { Text(text = stringResource(id = R.string.add_medication)) },
         icon = {
             Icon(
+
                 imageVector = Icons.Default.Add,
                 contentDescription = stringResource(R.string.add)
             )
@@ -206,6 +211,25 @@ fun MedicalFAB(navController: NavController, analyticsHelper: AnalyticsHelper) {
         onClick = {
             analyticsHelper.logEvent(AnalyticsEvents.ADD_MEDICATION_CLICKED_FAB)
             navController.navigate(AddMedicationDestination.route)
+        },
+        elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp),
+        containerColor = MaterialTheme.colorScheme.tertiary
+    )
+}
+@Composable
+fun ControlFAB(navController: NavController, analyticsHelper: AnalyticsHelper) {
+    ExtendedFloatingActionButton(
+        text = { Text(text = stringResource(id = R.string.add_control)) },
+        icon = {
+            Icon(
+
+                imageVector = Icons.Default.Add,
+                contentDescription = stringResource(R.string.add)
+            )
+        },
+        onClick = {
+            analyticsHelper.logEvent(AnalyticsEvents.ADD_CONTROL_CLICKED_FAB)
+            navController.navigate(AddControlDestination.route)
         },
         elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp),
         containerColor = MaterialTheme.colorScheme.tertiary
