@@ -242,8 +242,7 @@ fun AddControlScreen(
                                 text = stringResource(R.string.control_hint)
                             )
                         },
-                        isError = isMaxDoseError,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                        isError = isMaxDoseError
                     )
                 }
                 RecurrenceDropdownMenu { recurrence = it }
