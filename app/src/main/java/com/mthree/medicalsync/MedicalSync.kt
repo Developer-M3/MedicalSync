@@ -4,7 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -35,7 +35,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -53,18 +52,20 @@ import com.mthree.medicalsync.navigation.TOP_LEVEL_DESTINATIONS
 import com.mthree.medicalsync.navigation.TopLevelDestination
 import com.mthree.medicalsync.ui.theme.MedicalSyncTheme
 import com.mthree.medicalsync.util.SnackbarUtil
+import androidx.compose.material3.*
 
+
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MedicalSync(
     analyticsHelper: AnalyticsHelper
 ) {
     MedicalSyncTheme {
-        // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-
             val navController = rememberNavController()
             val medicalTopLevelNavigation = remember(navController) {
                 MedicalTopLevelNavigation(navController)
@@ -73,15 +74,22 @@ fun MedicalSync(
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
 
-            val bottomBarVisibility = rememberSaveable { (mutableStateOf(true)) }
-            val fabVisibility = rememberSaveable { (mutableStateOf(true)) }
+            val bottomBarVisibility = rememberSaveable { mutableStateOf(true) }
+            val fabVisibility = rememberSaveable { mutableStateOf(true) }
 
             Scaffold(
-                modifier = Modifier.padding(16.dp, 0.dp),
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
+                topBar = {
+                    TopAppBar(
+                        title = { Text(text = stringResource(id = R.string.app_name)) },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            titleContentColor = MaterialTheme.colorScheme.onPrimary
+                        )
+                    )
+                },
                 floatingActionButton = {
-
                     AnimatedVisibility(
                         visible = fabVisibility.value,
                         enter = slideInVertically(initialOffsetY = { it }),
@@ -117,24 +125,24 @@ fun MedicalSync(
                     }
                 }
             ) { padding ->
-                Row(
+                Column(
                     Modifier
                         .fillMaxSize()
+                        .padding(padding)
+                        .padding(horizontal = 16.dp)
                         .windowInsetsPadding(
                             WindowInsets.safeDrawing.only(
                                 WindowInsetsSides.Horizontal
                             )
                         )
                 ) {
-
                     MedicalNavHost(
                         bottomBarVisibility = bottomBarVisibility,
                         fabVisibility = fabVisibility,
                         navController = navController,
                         modifier = Modifier
-                            .padding(padding)
+                            .fillMaxSize()
                             .consumeWindowInsets(padding)
-                            .zIndex(1f)
                     )
                 }
             }
@@ -148,8 +156,6 @@ private fun MedicalBottomBar(
     currentDestination: NavDestination?,
     analyticsHelper: AnalyticsHelper
 ) {
-    // Wrap the navigation bar in a surface so the color behind the system
-    // navigation is equal to the container color of the navigation bar.
     Surface(color = MaterialTheme.colorScheme.surface) {
         NavigationBar(
             modifier = Modifier.windowInsetsPadding(
@@ -159,7 +165,6 @@ private fun MedicalBottomBar(
             ),
             tonalElevation = 0.dp
         ) {
-
             TOP_LEVEL_DESTINATIONS.forEach { destination ->
                 val selected =
                     currentDestination?.hierarchy?.any { it.route == destination.route } == true
@@ -203,7 +208,6 @@ fun MedicalFAB(navController: NavController, analyticsHelper: AnalyticsHelper) {
         text = { Text(text = stringResource(id = R.string.add_medication)) },
         icon = {
             Icon(
-
                 imageVector = Icons.Default.Add,
                 contentDescription = stringResource(R.string.add)
             )
@@ -216,13 +220,13 @@ fun MedicalFAB(navController: NavController, analyticsHelper: AnalyticsHelper) {
         containerColor = MaterialTheme.colorScheme.tertiary
     )
 }
+
 @Composable
 fun ControlFAB(navController: NavController, analyticsHelper: AnalyticsHelper) {
     ExtendedFloatingActionButton(
         text = { Text(text = stringResource(id = R.string.add_control)) },
         icon = {
             Icon(
-
                 imageVector = Icons.Default.Add,
                 contentDescription = stringResource(R.string.add)
             )
