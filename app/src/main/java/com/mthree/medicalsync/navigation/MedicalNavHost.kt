@@ -11,7 +11,6 @@ import com.mthree.medicalsync.feature.addcontrol.navigation.addControlGraph
 import com.mthree.medicalsync.feature.addmedication.navigation.addMedicationGraph
 import com.mthree.medicalsync.feature.calendar.navigation.calendarGraph
 import com.mthree.medicalsync.feature.control.navigation.ControlDestination
-import com.mthree.medicalsync.feature.history.historyGraph
 import com.mthree.medicalsync.feature.home.navigation.HomeDestination
 import com.mthree.medicalsync.feature.home.navigation.homeGraph
 import com.mthree.medicalsync.feature.control.navigation.controlGraph

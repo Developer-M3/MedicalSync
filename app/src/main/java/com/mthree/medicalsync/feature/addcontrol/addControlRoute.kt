@@ -144,7 +144,7 @@ fun AddControlScreen(
                 onClick = {
                     validateControl(
                         name = controlName,
-                        dosage = numberOfDosage.toIntOrNull() ?: 0,
+                        dosage = numberOfDosage,
                         recurrence = recurrence,
                         endDate = endDate,
                         selectedTimes = selectedTimes,
@@ -291,7 +291,7 @@ fun AddControlScreen(
 
 private fun validateControl(
     name: String,
-    dosage: Int,
+    dosage: String,
     recurrence: String,
     endDate: Long,
     selectedTimes: List<CalendarInformation>,
@@ -304,7 +304,8 @@ private fun validateControl(
         return
     }
 
-    if (dosage < 1) {
+    val dosageInt = dosage.toIntOrNull()
+    if (dosageInt == null || dosageInt < 1) {
         onInvalidate(R.string.disease)
         return
     }
@@ -319,9 +320,7 @@ private fun validateControl(
         return
     }
 
-    val controls =
-        viewModel.createControls(name, dosage, recurrence, Date(endDate), selectedTimes)
-
+    val controls = viewModel.createControls(name, dosageInt, recurrence, Date(endDate), selectedTimes)
     onValidate(controls)
 }
 
@@ -347,16 +346,10 @@ private fun canSelectMoreTimesOfDay(selectionCount: Int, numberOfDosage: Int): B
     return selectionCount < numberOfDosage
 }
 
-private fun showMaxSelectionSnackbar(
-    numberOfDosage: String,
-    context: Context
-) {
-    val dosage = ((numberOfDosage.toIntOrNull() ?: 0) + 1).toString()
+private fun showMaxSelectionSnackbar(numberOfDosage: String, context: Context) {
+    val dosage = (numberOfDosage.toIntOrNull()?.let { it + 1 } ?: "invalid").toString()
     showSnackbar(
-        context.getString(
-            R.string.dosage_and_frequency_mismatch_error_message,
-            dosage
-        )
+        context.getString(R.string.dosage_and_frequency_mismatch_error_message, dosage)
     )
 }
 
