@@ -8,7 +8,8 @@
     <string name="medication_name">Medication Name</string>
     <string name="add_control">Add Control</string>
     <string name="control_name">Control Name</string>
-    <string name="dose_per_day">Dosage</string>
+    <string name="amount">Amount</string>
+    <string name="disease">Disease</string>
     <string name="recurrence">Recurrence</string>
     <string name="end_date">End Date</string>
     <string name="times_of_day">Times of Day</string>
@@ -38,7 +39,8 @@
     <string name="medication_name_hint">e.g. Paracetamol, 4mg</string>
     <string name="control_name_hint">e.g. RS Siloam</string>
     <string name="error">Error</string>
-    <string name="dosage_hint">e.g. 1</string>
+    <string name="dosage_hint">Spoon</string>
+    <string name="control_hint">Fever</string>
     <string name="max_dosage_error_message">You cannot have more than 99 dosage per day.</string>
     <string name="selected_content_description">Selected</string>
     <string name="dosage_and_frequency_mismatch_error_message">You\'re selecting %s time(s) of days which is more than the number of dosage.</string>

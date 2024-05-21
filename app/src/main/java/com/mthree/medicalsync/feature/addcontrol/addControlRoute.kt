@@ -90,7 +90,7 @@ fun AddControlScreen(
     navigateToControlConfirm: (List<Control>) -> Unit,
 ) {
     var controlName by rememberSaveable { mutableStateOf("") }
-    var numberOfDosage by rememberSaveable { mutableStateOf("1") }
+    var numberOfDosage by rememberSaveable { mutableStateOf("") }
     var recurrence by rememberSaveable { mutableStateOf(Recurrence.Daily.name) }
     var endDate by rememberSaveable { mutableLongStateOf(Date().time) }
     val selectedTimes = rememberSaveable(saver = CalendarInformation.getStateListSaver()) { mutableStateListOf(CalendarInformation(Calendar.getInstance())) }
@@ -214,7 +214,7 @@ fun AddControlScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.dose_per_day),
+                        text = stringResource(id = R.string.disease),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     TextField(
@@ -239,7 +239,7 @@ fun AddControlScreen(
                         },
                         placeholder = {
                             Text(
-                                text = stringResource(R.string.dosage_hint)
+                                text = stringResource(R.string.control_hint)
                             )
                         },
                         isError = isMaxDoseError,
@@ -306,7 +306,7 @@ private fun validateControl(
     }
 
     if (dosage < 1) {
-        onInvalidate(R.string.dose_per_day)
+        onInvalidate(R.string.disease)
         return
     }
 

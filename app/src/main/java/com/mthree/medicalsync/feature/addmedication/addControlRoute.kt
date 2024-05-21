@@ -90,7 +90,7 @@ fun AddMedicationScreen(
     navigateToMedicationConfirm: (List<Medication>) -> Unit,
 ) {
     var medicationName by rememberSaveable { mutableStateOf("") }
-    var numberOfDosage by rememberSaveable { mutableStateOf("1") }
+    var numberOfDosage by rememberSaveable { mutableStateOf("") }
     var recurrence by rememberSaveable { mutableStateOf(Recurrence.Daily.name) }
     var endDate by rememberSaveable { mutableLongStateOf(Date().time) }
     val selectedTimes = rememberSaveable(saver = CalendarInformation.getStateListSaver()) { mutableStateListOf(CalendarInformation(Calendar.getInstance())) }
@@ -214,7 +214,7 @@ fun AddMedicationScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.dose_per_day),
+                        text = stringResource(id = R.string.amount),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     TextField(
@@ -306,7 +306,7 @@ private fun validateMedication(
     }
 
     if (dosage < 1) {
-        onInvalidate(R.string.dose_per_day)
+        onInvalidate(R.string.amount)
         return
     }
 
