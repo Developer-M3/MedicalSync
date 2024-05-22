@@ -414,13 +414,11 @@ fun UnitDropdownMenu(unit: (String) -> Unit) {
     }
 }
 
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecurrenceDropdownMenu(recurrence: (String) -> Unit) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Text(
             text = stringResource(id = R.string.recurrence),
@@ -434,7 +432,7 @@ fun RecurrenceDropdownMenu(recurrence: (String) -> Unit) {
             onExpandedChange = { expanded = !expanded },
         ) {
             TextField(
-                modifier = Modifier.menuAnchor(),
+                modifier =  Modifier.fillMaxWidth().menuAnchor(),
                 readOnly = true,
                 value = selectedOptionText,
                 onValueChange = {},
