@@ -380,7 +380,7 @@ fun UnitDropdownMenu(unit: (String) -> Unit) {
             style = MaterialTheme.typography.bodyLarge
         )
         val options =
-            listOf("Tablet", "Kapsul", "Sendok Makan", "Sendok Teh") // Opsi unit dosis
+            listOf("Tablet", "Capsule", "Tablespoon", "Teaspoon", "Pill", "Gel Capsule", "Drops", "Milliliter", "Unit", "Suppository", "Patch") // Opsi unit dosis
         var expanded by remember { mutableStateOf(false) }
         var selectedOptionText by remember { mutableStateOf(options[0]) }
         ExposedDropdownMenuBox(
