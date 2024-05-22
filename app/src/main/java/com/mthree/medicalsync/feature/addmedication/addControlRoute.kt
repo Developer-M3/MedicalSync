@@ -377,8 +377,7 @@ fun UnitDropdownMenu(unit: (String) -> Unit) {
     ) {
         Text(
             text = stringResource(id = R.string.unit),
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(bottom = 8.dp)
+            style = MaterialTheme.typography.bodyLarge
         )
         val options =
             listOf("Tablet", "Kapsul", "Sendok Makan", "Sendok Teh") // Opsi unit dosis
