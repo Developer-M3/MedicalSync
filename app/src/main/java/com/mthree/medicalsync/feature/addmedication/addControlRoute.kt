@@ -16,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
@@ -93,6 +94,7 @@ fun AddMedicationScreen(
     var numberOfDosage by rememberSaveable { mutableStateOf("") }
     var recurrence by rememberSaveable { mutableStateOf(Recurrence.Daily.name) }
     var endDate by rememberSaveable { mutableLongStateOf(Date().time) }
+    var unit by rememberSaveable { mutableStateOf("Tablet") } // Variabel untuk menyimpan unit dosis
     val selectedTimes = rememberSaveable(saver = CalendarInformation.getStateListSaver()) { mutableStateListOf(CalendarInformation(Calendar.getInstance())) }
     val context = LocalContext.current
 
@@ -120,7 +122,7 @@ fun AddMedicationScreen(
                         elevation = FloatingActionButtonDefaults.elevation(0.dp, 0.dp)
                     ) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.back)
                         )
                     }
@@ -146,6 +148,7 @@ fun AddMedicationScreen(
                         name = medicationName,
                         dosage = numberOfDosage.toIntOrNull() ?: 0,
                         recurrence = recurrence,
+                        unit = unit,
                         endDate = endDate,
                         selectedTimes = selectedTimes,
                         onInvalidate = {
@@ -246,7 +249,7 @@ fun AddMedicationScreen(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     )
                 }
-                RecurrenceDropdownMenu { recurrence = it }
+                UnitDropdownMenu { unit = it }
             }
 
             if (isMaxDoseError) {
@@ -256,6 +259,9 @@ fun AddMedicationScreen(
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
+
+            Spacer(modifier = Modifier.padding(4.dp))
+            RecurrenceDropdownMenu { recurrence = it }
 
             Spacer(modifier = Modifier.padding(4.dp))
             EndDateTextField { endDate = it }
@@ -290,6 +296,7 @@ fun AddMedicationScreen(
     }
 }
 
+
 private fun validateMedication(
     name: String,
     dosage: Int,
@@ -298,7 +305,8 @@ private fun validateMedication(
     selectedTimes: List<CalendarInformation>,
     onInvalidate: (Int) -> Unit,
     onValidate: (List<Medication>) -> Unit,
-    viewModel: AddMedicationViewModel
+    viewModel: AddMedicationViewModel,
+    unit: String
 ) {
     if (name.isEmpty()) {
         onInvalidate(R.string.medication_name)
@@ -363,6 +371,54 @@ private fun showMaxSelectionSnackbar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun UnitDropdownMenu(unit: (String) -> Unit) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.unit),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        val options =
+            listOf("Tablet", "Kapsul", "Sendok Makan", "Sendok Teh") // Opsi unit dosis
+        var expanded by remember { mutableStateOf(false) }
+        var selectedOptionText by remember { mutableStateOf(options[0]) }
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded },
+        ) {
+            TextField(
+                modifier = Modifier.menuAnchor(),
+                readOnly = true,
+                value = selectedOptionText,
+                onValueChange = {},
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
+                options.forEach { selectionOption ->
+                    DropdownMenuItem(
+                        text = { Text(selectionOption) },
+                        onClick = {
+                            selectedOptionText = selectionOption
+                            unit(selectionOption)
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun RecurrenceDropdownMenu(recurrence: (String) -> Unit) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -371,7 +427,6 @@ fun RecurrenceDropdownMenu(recurrence: (String) -> Unit) {
             text = stringResource(id = R.string.recurrence),
             style = MaterialTheme.typography.bodyLarge
         )
-
         val options = getRecurrenceList().map { it.name }
         var expanded by remember { mutableStateOf(false) }
         var selectedOptionText by remember { mutableStateOf(options[0]) }

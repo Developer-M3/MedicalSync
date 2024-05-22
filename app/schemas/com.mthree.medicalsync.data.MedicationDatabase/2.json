@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "fbbda184cc33451bf82be63dcd65c2c5",
+    "identityHash": "5aadb610f14ee819b6f64b43c5314a9e",
     "entities": [
       {
         "tableName": "MedicationEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `dosage` INTEGER NOT NULL, `recurrence` TEXT NOT NULL, `endDate` INTEGER NOT NULL, `medicationTime` INTEGER NOT NULL, `medicationTaken` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `dosage` INTEGER NOT NULL, `recurrence` TEXT NOT NULL, `endDate` INTEGER NOT NULL, `medicationTime` INTEGER NOT NULL, `medicationTaken` INTEGER NOT NULL, `unit` TEXT NOT NULL DEFAULT 'default_unit_value')",
         "fields": [
           {
             "fieldPath": "id",
@@ -49,6 +49,13 @@
             "columnName": "medicationTaken",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "unit",
+            "columnName": "unit",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'default_unit_value'"
           }
         ],
         "primaryKey": {
@@ -64,7 +71,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fbbda184cc33451bf82be63dcd65c2c5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5aadb610f14ee819b6f64b43c5314a9e')"
     ]
   }
 }

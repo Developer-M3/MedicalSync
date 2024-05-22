@@ -110,8 +110,9 @@ private fun MedicationCardTakeNowPreview() {
             dosage = 1,
             recurrence = "2",
             endDate = Date(),
+            medicationTaken = false,
             medicationTime = Date(),
-            medicationTaken = false
+            unit = ""
         )
     ) { }
 }
@@ -126,8 +127,9 @@ private fun MedicationCardTakenPreview() {
             dosage = 1,
             recurrence = "2",
             endDate = Date(),
+            medicationTaken = true,
             medicationTime = Date(),
-            medicationTaken = true
+            unit = ""
         )
     ) { }
 }

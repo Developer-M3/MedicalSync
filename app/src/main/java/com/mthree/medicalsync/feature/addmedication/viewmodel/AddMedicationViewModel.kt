@@ -48,7 +48,8 @@ class AddMedicationViewModel @Inject constructor(
                     recurrence = recurrence,
                     endDate = endDate,
                     medicationTaken = false,
-                    medicationTime = getMedicationTime(medicationTime, calendar)
+                    medicationTime = getMedicationTime(medicationTime, calendar),
+                    unit = ""
                 )
                 medications.add(medication)
             }

@@ -38,7 +38,7 @@
     <string name="medication_name_hint">e.g. Paracetamol, 4mg</string>
     <string name="control_name_hint">e.g. RS Davin</string>
     <string name="error">Error</string>
-    <string name="dosage_hint">Spoon</string>
+    <string name="dosage_hint">1xx</string>
     <string name="control_hint">Fever</string>
     <string name="max_dosage_error_message">You cannot have more than 99 dosage per day.</string>
     <string name="selected_content_description">Selected</string>
@@ -79,6 +79,7 @@
     <string name="medication_reminder_time">It is time to take your medication, %s. Open the app to log it.</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="unit">Unit *</string>
     <string name="daily">Daily</string>
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>

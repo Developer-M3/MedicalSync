@@ -12,5 +12,6 @@ data class Medication(
     val recurrence: String,
     val endDate: Date,
     val medicationTaken: Boolean,
-    val medicationTime: Date
+    val medicationTime: Date,
+    val unit: String
 ) : Parcelable

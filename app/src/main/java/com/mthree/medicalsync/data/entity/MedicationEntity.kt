@@ -1,5 +1,6 @@
 package com.mthree.medicalsync.data.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
@@ -13,4 +14,6 @@ data class MedicationEntity(
     val endDate: Date,
     val medicationTime: Date = Date(),
     val medicationTaken: Boolean,
+
+    @ColumnInfo(defaultValue = "default_unit_value") val unit: String
 )
