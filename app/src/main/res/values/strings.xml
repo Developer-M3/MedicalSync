@@ -72,7 +72,7 @@
     <string name="control_scheduled_at">Scheduled at %s</string>
     <string name="control_timely_reminders_setup_message">%s is now set up for timely reminders.</string>
     <string name="control_logged">Control Logged</string>
-    <string name="control_dose_details">%d dose at %s</string>
+    <string name="control_dose_details">%s dose at %s</string>
     <string name="control_reminder">Control Reminder</string>
     <string name="notifications_for_control_reminder">Notifications for control reminder</string>
     <string name="notifications_for_medication_reminder">Notifications for medication reminder</string>
