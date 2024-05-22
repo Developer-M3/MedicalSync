@@ -235,7 +235,7 @@ fun EmptyCard(
                 )
 
                 Text(
-                    text = stringResource(R.string.home_screen_empty_card_message),
+                    text = stringResource(R.string.medication_screen_empty_card_message),
                     style = MaterialTheme.typography.titleSmall,
                 )
             }
