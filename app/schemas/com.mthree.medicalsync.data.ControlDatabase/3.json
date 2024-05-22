@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 2,
-    "identityHash": "afdf6a27a0a719621bdc15149f410518",
+    "version": 3,
+    "identityHash": "11726cd143a3a15f489c25622c7be6c7",
     "entities": [
       {
         "tableName": "ControlEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL DEFAULT '', `dosage` TEXT NOT NULL, `recurrence` TEXT NOT NULL, `endDate` INTEGER NOT NULL, `controlTime` INTEGER NOT NULL, `controlTaken` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `dosage` TEXT NOT NULL, `recurrence` TEXT NOT NULL, `endDate` INTEGER NOT NULL, `controlTime` INTEGER NOT NULL, `controlTaken` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -24,8 +24,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true,
-            "defaultValue": "''"
+            "notNull": true
           },
           {
             "fieldPath": "dosage",
@@ -71,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'afdf6a27a0a719621bdc15149f410518')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '11726cd143a3a15f489c25622c7be6c7')"
     ]
   }
 }

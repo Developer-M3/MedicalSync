@@ -7,6 +7,7 @@ fun ControlEntity.toControl(): Control {
     return Control(
         id = id,
         name = name,
+        description = description,
         dosage = dosage,
         recurrence = recurrence,
         endDate = endDate,
@@ -19,6 +20,7 @@ fun Control.toControlEntity(): ControlEntity {
     return ControlEntity(
         id = id ?: 0L,
         name = name,
+        description = description,
         dosage = dosage,
         recurrence = recurrence,
         endDate = endDate,

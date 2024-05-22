@@ -102,6 +102,7 @@ private fun ControlCardTakeNowPreview() {
         Control(
             id = 123L,
             name = "A big big name for a little control I needs to take",
+            description = "",
             dosage = "Davin",
             recurrence = "2",
             endDate = Date(),
@@ -118,6 +119,7 @@ private fun ControlCardTakenPreview() {
         Control(
             id = 123L,
             name = "A big big name for a little control I needs to take",
+            description = "",
             dosage = "Davin",
             recurrence = "2",
             endDate = Date(),

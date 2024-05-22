@@ -16,6 +16,7 @@ class AddControlViewModel @Inject constructor(
 
     fun createControls(
         name: String,
+        description: String,
         dosage: String,
         recurrence: String,
         endDate: Date,
@@ -44,6 +45,7 @@ class AddControlViewModel @Inject constructor(
                 val control = Control(
                     id = 0,
                     name = name,
+                    description = description,
                     dosage = dosage,
                     recurrence = recurrence,
                     endDate = endDate,

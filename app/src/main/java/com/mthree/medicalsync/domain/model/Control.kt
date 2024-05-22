@@ -9,6 +9,7 @@ data class Control(
     val id: Long?,
     val name: String,
     val dosage: String,
+    val description: String,
     val recurrence: String,
     val endDate: Date,
     val controlTaken: Boolean,

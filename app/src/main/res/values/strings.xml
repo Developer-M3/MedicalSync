@@ -7,6 +7,8 @@
     <string name="medication_name">Medication Name</string>
     <string name="add_control">Add Control</string>
     <string name="control_name">Hospital Name</string>
+    <string name="control_description">Description</string>
+    <string name="control_description_hint">Description Hint</string>
     <string name="amount">Amount</string>
     <string name="disease">Disease</string>
     <string name="recurrence">Recurrence</string>

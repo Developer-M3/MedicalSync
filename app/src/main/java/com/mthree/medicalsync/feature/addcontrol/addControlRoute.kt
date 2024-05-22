@@ -86,6 +86,7 @@ fun AddControlScreen(
     navigateToControlConfirm: (List<Control>) -> Unit,
 ) {
     var controlName by rememberSaveable { mutableStateOf("") }
+    var descriptionText by rememberSaveable { mutableStateOf("") }
     var numberOfDosage by rememberSaveable { mutableStateOf("") }
     var recurrence by rememberSaveable { mutableStateOf(Recurrence.Daily.name) }
     var endDate by rememberSaveable { mutableLongStateOf(Date().time) }
@@ -140,6 +141,7 @@ fun AddControlScreen(
                 onClick = {
                     validateControl(
                         name = controlName,
+                        description = descriptionText,
                         dosage = numberOfDosage,
                         recurrence = recurrence,
                         endDate = endDate,
@@ -194,6 +196,24 @@ fun AddControlScreen(
                 placeholder = {
                     Text(
                         text = stringResource(R.string.control_name_hint)
+                    )
+                },
+            )
+
+            Spacer(modifier = Modifier.padding(4.dp))
+
+            Text(
+                text = stringResource(id = R.string.control_description),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                value = descriptionText,
+                onValueChange = { descriptionText = it },
+                placeholder = {
+                    Text(
+                        text = stringResource(R.string.control_description_hint)
                     )
                 },
             )
@@ -262,6 +282,7 @@ fun AddControlScreen(
 
 private fun validateControl(
     name: String,
+    description: String,
     dosage: String,
     recurrence: String,
     endDate: Long,
@@ -290,7 +311,7 @@ private fun validateControl(
         return
     }
 
-    val controls = viewModel.createControls(name, dosage, recurrence, Date(endDate), selectedTimes)
+    val controls = viewModel.createControls(name, dosage, description, recurrence, Date(endDate), selectedTimes)
     onValidate(controls)
 }
 
@@ -446,7 +467,6 @@ fun TimerTextField(
         value = selectedTime.getDateFormatted(HOUR_MINUTE_FORMAT),
         onValueChange = {},
         trailingIcon = {
-            // TODO: Make delete action work properly
             if (isLastItem && !isOnlyItem) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
