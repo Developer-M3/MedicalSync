@@ -269,6 +269,7 @@ fun AddControlScreen(
                     },
                 )
             }
+
             Button(
                 onClick = { addTime(CalendarInformation(Calendar.getInstance())) }
             ) {
