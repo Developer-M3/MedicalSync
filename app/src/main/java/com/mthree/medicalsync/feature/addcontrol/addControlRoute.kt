@@ -311,7 +311,7 @@ private fun validateControl(
         return
     }
 
-    val controls = viewModel.createControls(name, dosage, description, recurrence, Date(endDate), selectedTimes)
+    val controls = viewModel.createControls(name, description, dosage, recurrence, Date(endDate), selectedTimes)
     onValidate(controls)
 }
 

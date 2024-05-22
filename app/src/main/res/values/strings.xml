@@ -4,18 +4,18 @@
     <string name="calendar">Calendar</string>
     <string name="add_time" tools:ignore="MissingTranslation">Add Time</string>
     <string name="add_medication">Add Medication</string>
-    <string name="medication_name">Medication Name</string>
+    <string name="medication_name">Medication Name *</string>
     <string name="add_control">Add Control</string>
-    <string name="control_name">Hospital Name</string>
+    <string name="control_name">Hospital Name *</string>
     <string name="control_description">Description</string>
     <string name="control_description_hint">Description Hint</string>
-    <string name="amount">Amount</string>
-    <string name="disease">Disease</string>
-    <string name="recurrence">Recurrence</string>
-    <string name="end_date">End Date</string>
+    <string name="amount">Amount *</string>
+    <string name="disease">Disease *</string>
+    <string name="recurrence">Recurrence *</string>
+    <string name="end_date">End Date *</string>
     <string name="times_of_day">Times of Day</string>
-    <string name="times_for_medication">Time(s) for Medication</string>
-    <string name="times_for_control">Time(s) for Control</string>
+    <string name="times_for_medication">Time(s) for Medication *</string>
+    <string name="times_for_control">Time(s) for Control *</string>
     <string name="next">Next</string>
     <string name="value_is_empty">Please enter a valid value for %s</string>
     <string name="all_done">All done!</string>

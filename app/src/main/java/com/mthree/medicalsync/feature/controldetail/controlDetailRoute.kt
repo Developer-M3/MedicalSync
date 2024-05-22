@@ -193,15 +193,35 @@ fun ControlDetailScreen(
                 color = MaterialTheme.colorScheme.primary
             )
 
+//            Text(
+//                text = stringResource(
+//                    id = R.string.control_dose_details,
+//                    control.dosage,
+//                    control.controlTime.toFormattedTimeString()
+//                ),
+//                style = MaterialTheme.typography.headlineSmall,
+//                color = MaterialTheme.colorScheme.primary
+//            )
+
             Text(
-                text = stringResource(
-                    id = R.string.control_dose_details,
-                    control.dosage,
-                    control.controlTime.toFormattedTimeString()
-                ),
+                text = control.dosage,
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary
             )
+
+            Text(
+                text = control.controlTime.toFormattedTimeString(),
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.primary
+            )
+
+            if (control.description.isNotEmpty()) {
+                Text(
+                    text = control.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         }
     }
 }
