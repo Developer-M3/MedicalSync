@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "a03acdc43f19ea553755b3dea034d4f3",
+    "identityHash": "b2c172cb66b78ca040fcfdc46090075a",
     "entities": [
       {
         "tableName": "ControlEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `dosage` INTEGER NOT NULL, `recurrence` TEXT NOT NULL, `endDate` INTEGER NOT NULL, `controlTime` INTEGER NOT NULL, `controlTaken` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `dosage` TEXT NOT NULL, `recurrence` TEXT NOT NULL, `endDate` INTEGER NOT NULL, `controlTime` INTEGER NOT NULL, `controlTaken` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -23,7 +23,7 @@
           {
             "fieldPath": "dosage",
             "columnName": "dosage",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -64,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a03acdc43f19ea553755b3dea034d4f3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b2c172cb66b78ca040fcfdc46090075a')"
     ]
   }
 }

@@ -1,6 +1,5 @@
 package com.mthree.medicalsync.feature.addcontrol
 
-import android.content.Context
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -13,14 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,7 +47,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -204,11 +200,9 @@ fun AddControlScreen(
 
             Spacer(modifier = Modifier.padding(4.dp))
 
-            var isMaxDoseError by rememberSaveable { mutableStateOf(false) }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                val maxDose = 3
 
                 Column(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -221,39 +215,16 @@ fun AddControlScreen(
                         modifier = Modifier.width(128.dp),
                         value = numberOfDosage,
                         onValueChange = {
-                            if (it.length < maxDose) {
-                                isMaxDoseError = false
-                                numberOfDosage = it
-                            } else {
-                                isMaxDoseError = true
-                            }
-                        },
-                        trailingIcon = {
-                            if (isMaxDoseError) {
-                                Icon(
-                                    imageVector = Icons.Filled.Info,
-                                    contentDescription = stringResource(R.string.error),
-                                    tint = MaterialTheme.colorScheme.error
-                                )
-                            }
+                            numberOfDosage = it
                         },
                         placeholder = {
                             Text(
                                 text = stringResource(R.string.control_hint)
                             )
                         },
-                        isError = isMaxDoseError
                     )
                 }
                 RecurrenceDropdownMenu { recurrence = it }
-            }
-
-            if (isMaxDoseError) {
-                Text(
-                    text = stringResource(R.string.max_dosage_error_message),
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodySmall,
-                )
             }
 
             Spacer(modifier = Modifier.padding(4.dp))
@@ -304,8 +275,7 @@ private fun validateControl(
         return
     }
 
-    val dosageInt = dosage.toIntOrNull()
-    if (dosageInt == null || dosageInt < 1) {
+    if (dosage.isEmpty()) {
         onInvalidate(R.string.disease)
         return
     }
@@ -320,7 +290,7 @@ private fun validateControl(
         return
     }
 
-    val controls = viewModel.createControls(name, dosageInt, recurrence, Date(endDate), selectedTimes)
+    val controls = viewModel.createControls(name, dosage, recurrence, Date(endDate), selectedTimes)
     onValidate(controls)
 }
 
@@ -340,17 +310,6 @@ private fun handleSelection(
             onShowMaxSelectionError()
         }
     }
-}
-
-private fun canSelectMoreTimesOfDay(selectionCount: Int, numberOfDosage: Int): Boolean {
-    return selectionCount < numberOfDosage
-}
-
-private fun showMaxSelectionSnackbar(numberOfDosage: String, context: Context) {
-    val dosage = (numberOfDosage.toIntOrNull()?.let { it + 1 } ?: "invalid").toString()
-    showSnackbar(
-        context.getString(R.string.dosage_and_frequency_mismatch_error_message, dosage)
-    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -16,7 +16,7 @@ class AddControlViewModel @Inject constructor(
 
     fun createControls(
         name: String,
-        dosage: Int,
+        dosage: String,
         recurrence: String,
         endDate: Date,
         controlTimes: List<CalendarInformation>,

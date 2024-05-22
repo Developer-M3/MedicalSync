@@ -37,7 +37,7 @@
     <string name="back">Back</string>
     <string name="add">Add</string>
     <string name="medication_name_hint">e.g. Paracetamol, 4mg</string>
-    <string name="control_name_hint">e.g. RS Siloam</string>
+    <string name="control_name_hint">e.g. RS Davin</string>
     <string name="error">Error</string>
     <string name="dosage_hint">Spoon</string>
     <string name="control_hint">Fever</string>

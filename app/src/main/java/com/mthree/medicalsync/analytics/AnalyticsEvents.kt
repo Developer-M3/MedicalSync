@@ -68,7 +68,6 @@ object AnalyticsEvents {
     const val CONTROL_DETAIL_DONE_CLICKED = "control_detail_done_clicked"
 
     const val HOME_TAB_CLICKED = "home_tab_clicked"
-    const val HISTORY_TAB_CLICKED = "history_tab_clicked"
     const val CONTROL_TAB_CLICKED = "control_tab_clicked"
 
     const val HOME_CALENDAR_PREVIOUS_WEEK_CLICKED = "home_calendar_previous_week_clicked"

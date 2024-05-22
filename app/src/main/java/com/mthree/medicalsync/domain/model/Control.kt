@@ -8,7 +8,7 @@ import java.util.Date
 data class Control(
     val id: Long?,
     val name: String,
-    val dosage: Int,
+    val dosage: String,
     val recurrence: String,
     val endDate: Date,
     val controlTaken: Boolean,
